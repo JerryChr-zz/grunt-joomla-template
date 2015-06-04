@@ -10,84 +10,36 @@ defined('_JEXEC') or die('Restricted access');
 </head>
 <body>
 
-<div class="site-wrapper">
-
-    <div class="site-wrapper-inner">
-
-        <div class="cover-container">
-
-            <div class="masthead clearfix">
-                <div class="inner">
-                    <h3 class="masthead-brand">Cover</h3>
-                    <nav>
-                        <ul class="nav masthead-nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#">Features</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-
-            <div class="inner cover">
-                <h1 class="cover-heading">Look at me, I am refreshing on my own.</h1>
-                <p class="lead">Bacon ipsum dolor amet bresaola tongue beef jowl turkey landjaeger ball tip sirloin corned beef prosciutto. Beef brisket porchetta chicken, pork belly hamburger shoulder..</p>
-                <p class="lead">
-                    <a href="#" class="btn btn-lg btn-default">Learn more</a>
-                </p>
-            </div>
-
-            <div class="mastfoot">
-                <div class="inner">
-                    <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
 <!-- Joomla Content -->
 <div class="container">
     <?php if ($this->countModules( 'sidebar1 or sidebar2' )) : ?>
-        <?php if ($this->countModules( 'sidebar1' )) : ?>
-            <div id="sidebar1" class="col-sm-3">
-                <jdoc:include type="modules" name="sidebar1" style="xhtml" />
-            </div>
-        <?php endif; ?>
-        <?php if ($this->countModules( 'sidebar1 and sidebar2' )) : ?>
-            <div id="main" class="col-sm-6">
-                <jdoc:include type="component" />
-            </div>
-        <?php else : ?>
-
-            <div id="main" class="col-sm-9">
-                <jdoc:include type="component" />
-            </div>
-        <?php endif; ?>
-
-        <?php if ($this->countModules( 'sidebar2' )) : ?>
-            <div id="sidebar2" class="col-sm-3">
-                <jdoc:include type="modules" name="sidebar2" style="xhtml" />
-            </div>
-        <?php endif; ?>
-
+        <?php $sidebarwidth = "col-sm-3"; $contentwidth = "col-sm-9"; ?>
+    <?php elseif ($this->countModules( 'sidebar1 and sidebar2' )) : ?>    
+        <?php $sidebarwidth = "col-sm-3"; $contentwidth = "col-sm-6"; ?>
     <?php else : ?>
-        <div class="col-sm-12">
-            <jdoc:include type="component" />
+        <?php $contentwidth = "col-sm-12"; ?>
+    <?php endif; ?>
+    
+    <?php if ($this->countModules( 'sidebar1' )) : ?>
+        <div id="sidebar1" class="<?php echo $sidebarwidth; ?>">
+            <jdoc:include type="modules" name="sidebar1" style="xhtml" />
         </div>
     <?php endif; ?>
-
+    
+    <div id="main" class="<?php echo $contentwidth; ?>">
+        <jdoc:include type="message" />
+        <jdoc:include type="component" />
+    </div>
+    
+    <?php if ($this->countModules( 'sidebar2' )) : ?>
+        <div id="sidebar1" class="<?php echo $sidebarwidth; ?>">
+            <jdoc:include type="modules" name="sidebar2" style="xhtml" />
+        </div>
+    <?php endif; ?>
 </div>
 
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
 <script src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/js/production.min.js"/>
 </body>
 </html>
